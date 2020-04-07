@@ -13,7 +13,7 @@ Sebuah _chatbot_ sederhana untuk mengetahui informasi mengenai COVID-19 yang dib
 3. Jalankan perintah `pip install -r requirements.txt`
 4. Sebelum _running_ program, pastikan bahwa `virtualenv` juga sedang _running_. Cara manualnya dengan menjalankan perintah `venv/Scripts/Activate` atau bila menggunakan IDE, pastikan bahwa IDE anda mendeteksi `virtualenv` tersebut dan menggunakan interpreter yang ada didalamnya. (Visual Studio Code: F1 -> Python: Select Interpreter -> pilih yang `<nama folder>` tadi)
 5. Copy file `.env` yang sudah diberikan
-5. Jalankan aplikasi dengan mengetikkan perintah `py app.py`
+6. Jalankan aplikasi dengan mengetikkan perintah `py app.py`
 
 ## FAQ
 
