@@ -18,6 +18,7 @@ Command List:
 """
 
     return await ctx.send(help_string)
+
 class Status(object):
     def __init__(self, data):
         if type(data) is str:
