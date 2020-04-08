@@ -19,7 +19,7 @@ class CheckSynonym:
             result = self.binary_search(0, len(self.allCountries)-1, countries)
             if(result != 'empty'):
                 break
-        print(result)
+        return result
 
     def __binary_search(self, left, right, searchedText):
         if right >= left:

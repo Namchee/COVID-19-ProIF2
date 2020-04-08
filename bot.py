@@ -26,7 +26,7 @@ async def on_ready():
         Jangan dihapus, bwt debug koneksi
     """
     synonymCheck = CheckSynonym()
-    # synonymCheck.check_synonyms(textparam) buat cek synonymnya kalau gak ketemu kembaliannya 'empty'
+    # synonymCheck.check_synonyms(nama_negara) buat cek synonymnya kalau gak ketemu kembaliannya 'empty'
     print('Bot is connected to these servers:')
 
     for guild in bot.guilds:
