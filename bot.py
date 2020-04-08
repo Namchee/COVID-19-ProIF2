@@ -1,5 +1,7 @@
 from discord.ext.commands import Bot, errors
 from json import dumps
+import json
+import requests
 
 async def handle_help(ctx, params):
     help_string ="""This is a simple discord bot that can give you information about COVID-19.
@@ -9,14 +11,25 @@ Command List:
 1. `help`
     - Usage: `!pif2 help`
     - Function: Show the help dialog
+
+2. `status <country name>`
+	- Usage: `!pif2 status <country name>`
+    - Function: Show status from given country 		 
 """
 
     return await ctx.send(help_string)
 
+async def handle_status(ctx, params):
+    url = "https://covid19.mathdro.id/api/countries/"
+    url += params[0]
+    response = requests.get(url)	
+    status = response.json()
+    return await ctx.send(status)
+
 handler_map = {}
 
 handler_map['help'] = handle_help # tulis handler functionnya diatas
-
+handler_map['status'] = handle_status
 bot = Bot(command_prefix='!')
 
 @bot.event
