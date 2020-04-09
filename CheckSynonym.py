@@ -13,20 +13,30 @@ class CheckSynonym:
         self.type = '/json'
 
     def check_synonyms(self, textParam):
-        completeURL = self.URL+self.API_KEY+textParam+self.type
-        sendRequest = requests.get(url = completeURL)
-        data = sendRequest.json()
-        synonymList = data["noun"]["syn"]
-        result = "not found"
-        for countries in synonymList:
-            result = self.__binary_search(0, len(self.allCountries)-1, countries)
-            if(result != 'empty'):
-                break
+        result = ""
+        textParam = textParam.capitalize()
+        if textParam.casefold() == "South Korea".casefold():
+            textParam = "Korea, South"
+        result = self.__binary_search(0, len(self.allCountries)-1, textParam)
+        if result == 'empty':
+            completeURL = self.URL+self.API_KEY+textParam+self.type
+            sendRequest = requests.get(url = completeURL)
+            try:
+                data = sendRequest.json()
+                synonymList = data["noun"]["syn"]
+            except json.JSONDecodeError:
+                synonymList ="empty"
+
+            result = "empty"
+            for countries in synonymList:
+                result = self.__binary_search(0, len(self.allCountries)-1, countries)
+                if(result != 'empty'):
+                    break
         return result
 
     def __binary_search(self, left, right, searchedText):
         if right >= left:
-            mid = left+int((right-left)/2)
+            mid = left+(right-left) //2
             if self.allCountries[mid]["name"].casefold() == searchedText.casefold():
                 return self.allCountries[mid]["name"]
             elif self.allCountries[mid]["name"] > searchedText:
@@ -42,4 +52,5 @@ class CheckSynonym:
         jsonContent = json.loads(content)
         allCountries = jsonContent["countries"]
         return allCountries
+
 
