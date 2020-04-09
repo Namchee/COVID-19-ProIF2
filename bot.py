@@ -51,7 +51,7 @@ async def handle_status(ctx, params):
         response = requests.get(url)
         string = response.json()
         status = Status(string)
-        text = "COVID-19 Status in " + params[0].capitalize() + ":\n\n"
+        text = "COVID-19 Status in " + fullParam.capitalize() + ":\n\n"
         text += "Infected: " + str(status.confirmed.value) + "\n"
         text += "Recovered: " + str(status.recovered.value) + "\n"
         text += "Dead: " + str(status.deaths.value) + "\n\n"	
