@@ -68,7 +68,7 @@ def convert_datetime(strDate):
     datetimeObj = datetime.strptime(datetimeObj,"%Y-%m-%d %H:%M:%S")
     hari = datetimeObj.strftime("%A")
     tanggal = datetimeObj.strftime("%d")
-    bulan = datetimeObj.strftime("%B"))
+    bulan = datetimeObj.strftime("%B")
     tahun = "20" + datetimeObj.strftime("%y")
     jam = datetimeObj.strftime("%H")
     menit = datetimeObj.strftime("%M")
