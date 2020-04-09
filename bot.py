@@ -4,6 +4,7 @@ import json
 import requests
 from datetime import datetime
 import time
+import discord
 from CheckSynonym import CheckSynonym
 
 async def handle_help(ctx, params):
@@ -18,6 +19,10 @@ Command List:
 2. `status <country name>`
 	- Usage: `!pif2 status <country name>`
     - Function: Show status from given country 		 
+    
+3. `graph <country name>`
+    - Usage: `!pif2 graph <country name>`
+    - Function: Show graph from given country
 """
 
     return await ctx.send(help_string)
@@ -74,11 +79,27 @@ def convert_datetime(strDate):
     menit = datetimeObj.strftime("%M")
     result = hari + ", " + tanggal + " " + bulan + " " + tahun + " pukul " + jam + ":" + menit + " GMT+0"
     return result
+    
+async def handle_graph(ctx, params):
+    tempImageURL = "https://covid19.mathdro.id/api/countries/"
+    imageURL = " "
+    imageURL = imageURL.join(params)
+    checked = synonymCheck.check_synonyms(imageURL)
+    if checked != None:
+        tempImageURL += checked
+        tempImageURL += "/og"
+        embed = discord.Embed()
+        embed.set_image(url=tempImageURL)
+    else:
+        embed = discord.Embed()
+        embed.set_image(url="https://i.imgur.com/lBalNu8.png")
+    return await ctx.send("", embed = embed)
 	 
 handler_map = {}
 
 handler_map['help'] = handle_help # tulis handler functionnya diatas
 handler_map['status'] = handle_status
+handler_map['graph'] = handle_graph
 bot = Bot(command_prefix='!')
 
 @bot.event
