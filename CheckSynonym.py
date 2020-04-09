@@ -18,7 +18,7 @@ class CheckSynonym:
         if textParam.casefold() == "South Korea".casefold():
             textParam = "Korea, South"
         result = self.__binary_search(0, len(self.allCountries)-1, textParam)
-        if result == 'empty':
+        if result == None:
             completeURL = self.URL+self.API_KEY+textParam+self.type
             sendRequest = requests.get(url = completeURL)
             try:
@@ -27,7 +27,6 @@ class CheckSynonym:
             except json.JSONDecodeError:
                 synonymList ="empty"
 
-            result = "empty"
             for countries in synonymList:
                 result = self.__binary_search(0, len(self.allCountries)-1, countries)
                 if(result != 'empty'):
@@ -44,7 +43,7 @@ class CheckSynonym:
             else:
                 return self.__binary_search(mid+1, right, searchedText)
         else:
-            return "empty"
+            return None
 
     def __fetch_all_countries(self):
         file = open("countries.txt", "r")
@@ -52,5 +51,3 @@ class CheckSynonym:
         jsonContent = json.loads(content)
         allCountries = jsonContent["countries"]
         return allCountries
-
-
