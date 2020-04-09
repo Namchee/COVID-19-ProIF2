@@ -2,6 +2,7 @@ import json
 import requests
 from os import environ
 from dotenv import load_dotenv, find_dotenv
+import urllib.parse
 
 
 class CheckSynonym:
@@ -29,7 +30,7 @@ class CheckSynonym:
 
             for countries in synonymList:
                 result = self.__binary_search(0, len(self.allCountries)-1, countries)
-                if(result != 'empty'):
+                if(result != None):
                     break
         return result
 
@@ -51,5 +52,3 @@ class CheckSynonym:
         jsonContent = json.loads(content)
         allCountries = jsonContent["countries"]
         return allCountries
-
-
