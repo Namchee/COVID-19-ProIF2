@@ -58,7 +58,7 @@ async def handle_status(ctx, params):
         text += "Last Updated : " + convert_datetime(str(status.lastUpdate)) + "\n"
         text += "Data taken from JHE University"
     else:
-	    text = "I'm sorry, looks like the given country name does not exist in our database"
+	    text = "I'm sorry, looks like those country does not exist in our database"
     return await ctx.send(text)
 
 def convert_datetime(strDate):
