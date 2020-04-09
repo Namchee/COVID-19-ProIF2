@@ -55,20 +55,20 @@ async def handle_status(ctx, params):
     return await ctx.send(text)
 
 def convert_datetime(strDate):
-     hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
-     bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
-     datetimeObj = strDate
-     datetimeObj = datetimeObj.replace('T',' ',1)
-     datetimeObj = datetimeObj[0:19]
-     datetimeObj = datetime.strptime(datetimeObj,"%Y-%m-%d %H:%M:%S")
-     nohari = int(datetimeObj.strftime("%w"))
-     tanggal = datetimeObj.strftime("%d")
-     nobulan = int(datetimeObj.strftime("%m"))-1
-     tahun = "20" + datetimeObj.strftime("%y")
-     jam = datetimeObj.strftime("%H")
-     menit = datetimeObj.strftime("%M")
-     result = hari[nohari] + ", " + tanggal + " " +bulan[nobulan] + " " + tahun + " pukul " + jam + ":" + menit + " GMT+0"
-     return result
+    hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+    bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+    datetimeObj = strDate
+    datetimeObj = datetimeObj.replace('T',' ',1)
+    datetimeObj = datetimeObj[0:19]
+    datetimeObj = datetime.strptime(datetimeObj,"%Y-%m-%d %H:%M:%S")
+    nohari = int(datetimeObj.strftime("%w"))
+    tanggal = datetimeObj.strftime("%d")
+    nobulan = int(datetimeObj.strftime("%m"))-1
+    tahun = "20" + datetimeObj.strftime("%y")
+    jam = datetimeObj.strftime("%H")
+    menit = datetimeObj.strftime("%M")
+    result = hari[nohari] + ", " + tanggal + " " +bulan[nobulan] + " " + tahun + " pukul " + jam + ":" + menit + " GMT+0"
+    return result
 	 
 handler_map = {}
 
