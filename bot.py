@@ -1,5 +1,6 @@
 from discord.ext.commands import Bot, errors
 from json import dumps
+from CheckSynonym import CheckSynonym
 
 async def handle_help(ctx, params):
     help_string ="""This is a simple discord bot that can give you information about COVID-19.
@@ -24,7 +25,8 @@ async def on_ready():
     """
         Jangan dihapus, bwt debug koneksi
     """
-
+    synonymCheck = CheckSynonym()
+    # synonymCheck.check_synonyms(nama_negara) buat cek synonymnya kalau gak ketemu kembaliannya 'empty'
     print('Bot is connected to these servers:')
 
     for guild in bot.guilds:
