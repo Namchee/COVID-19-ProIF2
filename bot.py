@@ -4,6 +4,7 @@ import json
 import requests
 from datetime import datetime
 import time
+from CheckSynonym import CheckSynonym
 
 async def handle_help(ctx, params):
     help_string ="""This is a simple discord bot that can give you information about COVID-19.
@@ -42,16 +43,20 @@ class Status(object):
 		
 async def handle_status(ctx, params):
     url = "https://covid19.mathdro.id/api/countries/"
-    url += params[0]
-    response = requests.get(url)
-    string = response.json()
-    status = Status(string)
-    text = "Perkembangan COVID-19 di " + params[0].capitalize() + ":\n\n"
-    text += "Jumlah Kasus Positif: " + str(status.confirmed.value) + "\n"
-    text += "Jumlah Pasien Sembuh: " + str(status.recovered.value) + "\n"
-    text += "Jumlah Pasien Meninggal: " + str(status.deaths.value) + "\n\n"	
-    text += "Terakhir Diperbarui : " + convert_datetime(str(status.lastUpdate)) + "\n"
-    text += "Data diambil dari JHE University"
+    checked = synonymCheck.check_synonyms(params[0])
+    if checked != None:
+        url += checked
+        response = requests.get(url)
+        string = response.json()
+        status = Status(string)
+        text = "Perkembangan COVID-19 di " + params[0].capitalize() + ":\n\n"
+        text += "Jumlah Kasus Positif: " + str(status.confirmed.value) + "\n"
+        text += "Jumlah Pasien Sembuh: " + str(status.recovered.value) + "\n"
+        text += "Jumlah Pasien Meninggal: " + str(status.deaths.value) + "\n\n"	
+        text += "Terakhir Diperbarui : " + convert_datetime(str(status.lastUpdate)) + "\n"
+        text += "Data diambil dari JHE University"
+    else:
+	    text = "Maaf negara tersebut tidak ada di basis data kami"
     return await ctx.send(text)
 
 def convert_datetime(strDate):
@@ -81,7 +86,9 @@ async def on_ready():
     """
         Jangan dihapus, bwt debug koneksi
     """
-
+    global synonymCheck
+    synonymCheck = CheckSynonym()
+    # synonymCheck.check_synonyms(nama_negara) buat cek synonymnya kalau gak ketemu kembaliannya 'empty'
     print('Bot is connected to these servers:')
 
     for guild in bot.guilds:
