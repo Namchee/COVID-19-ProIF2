@@ -30,5 +30,7 @@ Aplikasi ini hanya dapat di-_run_ satu _instance_ saja untuk satu waktu. Jadi de
 ## Kontributor
 
 1. Cristopher 'Namchee' - [GitHub](https://github.com/namchee)
-2. David Christopher - [GitHub](https://github.com/davidatz285)
+2. Stephen Hadi - [GitHub](https://github.com/stephenhadi)
+3. David Christopher - [GitHub](https://github.com/davidatz285)
+
 PS: Penambahan kontributor hanya akan dilakukan bila anda melakukan _meaningful commit_ pada project ini
