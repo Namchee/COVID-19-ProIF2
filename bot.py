@@ -51,30 +51,28 @@ async def handle_status(ctx, params):
         response = requests.get(url)
         string = response.json()
         status = Status(string)
-        text = "Perkembangan COVID-19 di " + params[0].capitalize() + ":\n\n"
-        text += "Jumlah Kasus Positif: " + str(status.confirmed.value) + "\n"
-        text += "Jumlah Pasien Sembuh: " + str(status.recovered.value) + "\n"
-        text += "Jumlah Pasien Meninggal: " + str(status.deaths.value) + "\n\n"	
-        text += "Terakhir Diperbarui : " + convert_datetime(str(status.lastUpdate)) + "\n"
-        text += "Data diambil dari JHE University"
+        text = "COVID-19 Status in " + params[0].capitalize() + ":\n\n"
+        text += "Infected: " + str(status.confirmed.value) + "\n"
+        text += "Recovered: " + str(status.recovered.value) + "\n"
+        text += "Dead: " + str(status.deaths.value) + "\n\n"	
+        text += "Last Updated : " + convert_datetime(str(status.lastUpdate)) + "\n"
+        text += "Data taken from JHE University"
     else:
-	    text = "Maaf negara tersebut tidak ada di basis data kami"
+	    text = "I'm sorry, looks like the given country name does not exist in our database"
     return await ctx.send(text)
 
 def convert_datetime(strDate):
-    hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
-    bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
     datetimeObj = strDate
     datetimeObj = datetimeObj.replace('T',' ',1)
     datetimeObj = datetimeObj[0:19]
     datetimeObj = datetime.strptime(datetimeObj,"%Y-%m-%d %H:%M:%S")
-    nohari = int(datetimeObj.strftime("%w"))
+    hari = datetimeObj.strftime("%A")
     tanggal = datetimeObj.strftime("%d")
-    nobulan = int(datetimeObj.strftime("%m"))-1
+    bulan = datetimeObj.strftime("%B"))
     tahun = "20" + datetimeObj.strftime("%y")
     jam = datetimeObj.strftime("%H")
     menit = datetimeObj.strftime("%M")
-    result = hari[nohari] + ", " + tanggal + " " +bulan[nobulan] + " " + tahun + " pukul " + jam + ":" + menit + " GMT+0"
+    result = hari + ", " + tanggal + " " + bulan + " " + tahun + " pukul " + jam + ":" + menit + " GMT+0"
     return result
 	 
 handler_map = {}
