@@ -43,7 +43,9 @@ class Status(object):
 		
 async def handle_status(ctx, params):
     url = "https://covid19.mathdro.id/api/countries/"
-    checked = synonymCheck.check_synonyms(params[0])
+    fullParam = " "
+    fullParam = fullParam.join(params)
+    checked = synonymCheck.check_synonyms(fullParam)
     if checked != None:
         url += checked
         response = requests.get(url)
