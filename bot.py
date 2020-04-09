@@ -2,6 +2,8 @@ from discord.ext.commands import Bot, errors
 from json import dumps
 import json
 import requests
+from datetime import datetime
+import time
 
 async def handle_help(ctx, params):
     help_string ="""This is a simple discord bot that can give you information about COVID-19.
@@ -47,10 +49,26 @@ async def handle_status(ctx, params):
     text += "Jumlah Kasus Positif: " + str(status.confirmed.value) + "\n"
     text += "Jumlah Pasien Sembuh: " + str(status.recovered.value) + "\n"
     text += "Jumlah Pasien Meninggal: " + str(status.deaths.value) + "\n\n"	
-    text += "Terakhir Diperbarui : " + str(status.lastUpdate) + "\n"
+    text += "Terakhir Diperbarui : " + convert_datetime(str(status.lastUpdate)) + "\n"
     text += "Data diambil dari JHE University"
     return await ctx.send(text)
 
+def convert_datetime(strDate):
+     hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+     bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+     datetimeObj = strDate
+     datetimeObj = datetimeObj.replace('T',' ',1)
+     datetimeObj = datetimeObj[0:19]
+     datetimeObj = datetime.strptime(datetimeObj,"%Y-%m-%d %H:%M:%S")
+     nohari = int(datetimeObj.strftime("%w"))
+     tanggal = datetimeObj.strftime("%d")
+     nobulan = int(datetimeObj.strftime("%m"))-1
+     tahun = "20" + datetimeObj.strftime("%y")
+     jam = datetimeObj.strftime("%H")
+     menit = datetimeObj.strftime("%M")
+     result = hari[nohari] + ", " + tanggal + " " +bulan[nobulan] + " " + tahun + " pukul " + jam + ":" + menit + " GMT+0"
+     return result
+	 
 handler_map = {}
 
 handler_map['help'] = handle_help # tulis handler functionnya diatas
