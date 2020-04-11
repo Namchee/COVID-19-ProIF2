@@ -4,7 +4,7 @@ import json
 import requests
 from datetime import datetime
 import time
-from CheckSynonym import CheckSynonym
+from helper import JSONHandler, CheckSynonym
 
 async def handle_help(ctx, params):
     help_string ="""This is a simple discord bot that can give you information about COVID-19.
@@ -25,25 +25,6 @@ Command List:
 """
 
     return await ctx.send(help_string)
-
-class Status(object):
-    def __init__(self, data):
-        if type(data) is str:
-            data = jsson.loads(data)
-        self.convert_json(data)
-
-    def convert_json(self, data):
-        self.__dict__ = {}
-        for key, value in data.items():
-            if type(value) is dict:
-                value = Status(value)
-            self.__dict__[key] = value
-
-    def __setitem__(self, key, value):
-        self.__dict__[key] = value
-
-    def __getitem__(self, key):
-        return self.__dict__[key]
 		
 async def handle_status(ctx, params):
     url = "https://covid19.mathdro.id/api/countries/"
@@ -54,7 +35,7 @@ async def handle_status(ctx, params):
         url += checked
         response = requests.get(url)
         string = response.json()
-        status = Status(string)
+        status = JSONHandler(string)
         text = "COVID-19 Status in " + fullParam.capitalize() + ":\n\n"
         text += "Infected: " + str(status.confirmed.value) + "\n"
         text += "Recovered: " + str(status.recovered.value) + "\n"
@@ -71,6 +52,7 @@ async def handle_info(ctx, params):
     response = requests.get(url)
     string = response.json()
     text = string['extract'] +'\n\n' + 'Information is taken from: Wikipedia'
+
     return await ctx.send(text)
 
 def convert_datetime(strDate):
@@ -84,7 +66,8 @@ def convert_datetime(strDate):
     tahun = "20" + datetimeObj.strftime("%y")
     jam = datetimeObj.strftime("%H")
     menit = datetimeObj.strftime("%M")
-    result = hari + ", " + tanggal + " " + bulan + " " + tahun + " pukul " + jam + ":" + menit + " GMT+0"
+    result = hari + ", " + tanggal + " " + bulan + " " + tahun + " " + jam + ":" + menit + " GMT+0"
+
     return result
 	 
 handler_map = {}

@@ -31,6 +31,7 @@ class CheckSynonym:
                 result = self.__binary_search(0, len(self.allCountries)-1, countries)
                 if(result != None):
                     break
+
         return result
 
     def __binary_search(self, left, right, searchedText):
@@ -50,4 +51,26 @@ class CheckSynonym:
         content = file.read()
         jsonContent = json.loads(content)
         allCountries = jsonContent["countries"]
+
         return allCountries
+
+class JSONHandler(object):
+    def __init__(self, data):
+        if type(data) is str:
+            data = json.loads(data)
+        
+        self.convert_json(data)
+
+    def convert_json(self, data):
+        self.__dict__ = {}
+        for key, value in data.items():
+            if type(value) is dict:
+                value = JSONHandler(value)
+            
+            self.__dict__[key] = value
+
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
+
+    def __getitem__(self, key):
+        return self.__dict__[key]
