@@ -90,10 +90,10 @@ async def handle_graph(ctx, params):
         tempImageURL += "/og"
         embed = discord.Embed()
         embed.set_image(url=tempImageURL)
+        return await ctx.send("", embed = embed)
     else:
-        embed = discord.Embed()
-        embed.set_image(url="https://i.imgur.com/lBalNu8.png")
-    return await ctx.send("", embed = embed)
+        text = "I'm sorry, looks like those country does not exist in our database"
+        return await ctx.send(text)
 	 
 handler_map = {}
 
