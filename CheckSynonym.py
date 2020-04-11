@@ -4,7 +4,6 @@ from os import environ
 from dotenv import load_dotenv, find_dotenv
 import urllib.parse
 
-
 class CheckSynonym:
     def __init__(self):
         load_dotenv(find_dotenv())
