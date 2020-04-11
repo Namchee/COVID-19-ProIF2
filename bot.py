@@ -17,7 +17,11 @@ Command List:
 
 2. `status <country name>`
 	- Usage: `!pif2 status <country name>`
-    - Function: Show status from given country 		 
+  - Function: Show status from given country 	
+
+3. `info`
+	- Usage: `!pif2 info`
+  - Function: Show summary info about COVID-19	 
 """
 
     return await ctx.send(help_string)
@@ -58,7 +62,15 @@ async def handle_status(ctx, params):
         text += "Last Updated : " + convert_datetime(str(status.lastUpdate)) + "\n"
         text += "Data taken from JHE University"
     else:
-	    text = "I'm sorry, looks like those country does not exist in our database"
+	      text = "I'm sorry, looks like those country does not exist in our database"
+  
+    return await ctx.send(text)
+
+async def handle_info(ctx, params):
+    url = "https://en.wikipedia.org/api/rest_v1/page/summary/Coronavirus_disease_2019"
+    response = requests.get(url)
+    string = response.json()
+    text = string['extract'] +'\n\n' + 'Information is taken from: Wikipedia'
     return await ctx.send(text)
 
 def convert_datetime(strDate):
@@ -79,6 +91,7 @@ handler_map = {}
 
 handler_map['help'] = handle_help # tulis handler functionnya diatas
 handler_map['status'] = handle_status
+handler_map['info'] = handle_info
 bot = Bot(command_prefix='!')
 
 @bot.event
