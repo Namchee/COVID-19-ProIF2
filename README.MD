@@ -35,5 +35,6 @@ Aplikasi ini hanya dapat di-_run_ satu _instance_ saja untuk satu waktu. Jadi de
 2. Stephen Hadi - [GitHub](https://github.com/stephenhadi)
 3. David Christopher - [GitHub](https://github.com/davidatz285)
 4. Fariz Armesta - [GitHub](https://github.com/Farizarmesta)
+5. Steren Lie - [GitHub](https://github.com/Sterennn)
 
 PS: Penambahan kontributor hanya akan dilakukan bila anda melakukan _meaningful commit_ pada project ini

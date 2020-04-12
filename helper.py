@@ -74,3 +74,18 @@ class JSONHandler(object):
 
     def __getitem__(self, key):
         return self.__dict__[key]
+
+def convert_datetime(strDate):
+    datetimeObj = strDate
+    datetimeObj = datetimeObj.replace('T',' ',1)
+    datetimeObj = datetimeObj[0:19]
+    datetimeObj = datetime.strptime(datetimeObj,"%Y-%m-%d %H:%M:%S")
+    hari = datetimeObj.strftime("%A")
+    tanggal = datetimeObj.strftime("%d")
+    bulan = datetimeObj.strftime("%B")
+    tahun = "20" + datetimeObj.strftime("%y")
+    jam = datetimeObj.strftime("%H")
+    menit = datetimeObj.strftime("%M")
+    result = hari + ", " + tanggal + " " + bulan + " " + tahun + " " + jam + ":" + menit + " GMT+0"
+
+    return result
