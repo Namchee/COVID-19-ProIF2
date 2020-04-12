@@ -1,4 +1,4 @@
-from discord.ext.commands import Bot, errors
+from discord.ext.commands import Bot, errors, Embed
 from json import dumps
 import json
 import requests
@@ -16,12 +16,16 @@ Command List:
     - Function: Show the help dialog
 
 2. `status <country name>`
-	- Usage: `!pif2 status <country name>`
-  - Function: Show status from given country 	
+	  - Usage: `!pif2 status <country name>`
+    - Function: Show status from given country 		 
 
-3. `info`
+3. `graph <country name>`
+    - Usage: `!pif2 graph <country name>`
+    - Function: Show graph from given country
+
+4. `info`
 	- Usage: `!pif2 info`
-  - Function: Show summary info about COVID-19	 
+  - Function: Show summary info about COVID-19
 """
 
     return await ctx.send(help_string)
@@ -69,11 +73,27 @@ def convert_datetime(strDate):
     result = hari + ", " + tanggal + " " + bulan + " " + tahun + " " + jam + ":" + menit + " GMT+0"
 
     return result
+    
+async def handle_graph(ctx, params):
+    tempImageURL = "https://covid19.mathdro.id/api/countries/"
+    imageURL = " "
+    imageURL = imageURL.join(params)
+    checked = synonymCheck.check_synonyms(imageURL)
+    if checked != None:
+        tempImageURL += checked
+        tempImageURL += "/og"
+        embed = discord.Embed()
+        embed.set_image(url=tempImageURL)
+        return await ctx.send("", embed = embed)
+    else:
+        text = "I'm sorry, looks like those country does not exist in our database"
+        return await ctx.send(text)
 	 
 handler_map = {}
 
 handler_map['help'] = handle_help # tulis handler functionnya diatas
 handler_map['status'] = handle_status
+handler_map['graph'] = handle_graph
 handler_map['info'] = handle_info
 bot = Bot(command_prefix='!')
 
