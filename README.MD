@@ -19,6 +19,8 @@ Sebuah _chatbot_ sederhana untuk mengetahui informasi mengenai COVID-19 yang dib
 
 1. Kok nyangkut di langkah X?
 
+Mohon ikuti langkah-langkah berikut:
+
 - Pastikan anda MEMBACA LANGKAH DIATAS DENGAN BAIK
 - Pastikan anda menginstall Python :sweat:
 - Pastikan bahwa `PATH` anda dikonfigurasi dengan benar. Masalah lain via PM saja.
@@ -32,5 +34,6 @@ Aplikasi ini hanya dapat di-_run_ satu _instance_ saja untuk satu waktu. Jadi de
 1. Cristopher 'Namchee' - [GitHub](https://github.com/namchee)
 2. Stephen Hadi - [GitHub](https://github.com/stephenhadi)
 3. David Christopher - [GitHub](https://github.com/davidatz285)
+4. Fariz Armesta - [GitHub](https://github.com/Farizarmesta)
 
 PS: Penambahan kontributor hanya akan dilakukan bila anda melakukan _meaningful commit_ pada project ini
