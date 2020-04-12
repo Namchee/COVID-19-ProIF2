@@ -4,7 +4,7 @@ import json
 import requests
 from datetime import datetime
 import time
-from helper import JSONHandler, CheckSynonym
+from helper import JSONHandler, CheckSynonym, convert_datetime
 
 async def handle_help(ctx, params):
     help_string ="""This is a simple discord bot that can give you information about COVID-19.
@@ -58,21 +58,6 @@ async def handle_info(ctx, params):
     text = string['extract'] +'\n\n' + 'Information is taken from: Wikipedia'
 
     return await ctx.send(text)
-
-def convert_datetime(strDate):
-    datetimeObj = strDate
-    datetimeObj = datetimeObj.replace('T',' ',1)
-    datetimeObj = datetimeObj[0:19]
-    datetimeObj = datetime.strptime(datetimeObj,"%Y-%m-%d %H:%M:%S")
-    hari = datetimeObj.strftime("%A")
-    tanggal = datetimeObj.strftime("%d")
-    bulan = datetimeObj.strftime("%B")
-    tahun = "20" + datetimeObj.strftime("%y")
-    jam = datetimeObj.strftime("%H")
-    menit = datetimeObj.strftime("%M")
-    result = hari + ", " + tanggal + " " + bulan + " " + tahun + " " + jam + ":" + menit + " GMT+0"
-
-    return result
     
 async def handle_graph(ctx, params):
     tempImageURL = "https://covid19.mathdro.id/api/countries/"
