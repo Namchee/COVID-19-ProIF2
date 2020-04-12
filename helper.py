@@ -2,6 +2,7 @@ import json
 import requests
 from os import environ
 from dotenv import load_dotenv, find_dotenv
+from datetime import datetime
 import urllib.parse
 
 class CheckSynonym:

@@ -1,9 +1,8 @@
-from discord.ext.commands import Bot, errors, Embed
+from discord.ext.commands import Bot, errors
+from discord import Embed
 from json import dumps
 import json
 import requests
-from datetime import datetime
-import time
 from helper import JSONHandler, CheckSynonym, convert_datetime
 
 async def handle_help(ctx, params):
@@ -16,7 +15,7 @@ Command List:
     - Function: Show the help dialog
 
 2. `status <country name>`
-	  - Usage: `!pif2 status <country name>`
+	- Usage: `!pif2 status <country name>`
     - Function: Show status from given country 		 
 
 3. `graph <country name>`
@@ -25,7 +24,7 @@ Command List:
 
 4. `info`
 	- Usage: `!pif2 info`
-  - Function: Show summary info about COVID-19
+    - Function: Show summary info about COVID-19
 """
 
     return await ctx.send(help_string)
@@ -47,7 +46,7 @@ async def handle_status(ctx, params):
         text += "Last Updated : " + convert_datetime(str(status.lastUpdate)) + "\n"
         text += "Data taken from JHE University"
     else:
-	      text = "I'm sorry, looks like those country does not exist in our database"
+	    text = "I'm sorry, looks like those country does not exist in our database"
   
     return await ctx.send(text)
 
@@ -67,11 +66,13 @@ async def handle_graph(ctx, params):
     if checked != None:
         tempImageURL += checked
         tempImageURL += "/og"
-        embed = discord.Embed()
+        embed = Embed()
         embed.set_image(url=tempImageURL)
+
         return await ctx.send("", embed = embed)
     else:
         text = "I'm sorry, looks like those country does not exist in our database"
+
         return await ctx.send(text)
 	 
 handler_map = {}
